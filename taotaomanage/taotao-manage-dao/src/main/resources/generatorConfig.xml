@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+		PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+		"http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!--引入数据库配置文件以解耦-->
+	<properties resource="jdbc.properties"></properties>
+	<!-- !!!! Driver Class Path !!!! -->
+	<classPathEntry location="E:\maven_Repository\taotaoshop\mysql\mysql-connector-java\5.1.30\mysql-connector-java-5.1.30.jar"/>
+
+	<context id="testTables" targetRuntime="MyBatis3" defaultModelType="flat">
+		<!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表； 一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖 -->
+		<property name="autoDelimitKeywords" value="false" />
+		<!-- 生成的Java文件的编码 -->
+		<property name="javaFileEncoding" value="UTF-8" />
+
+		<!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+		<property name="beginningDelimiter" value="`" />
+		<property name="endingDelimiter" value="`" />
+		<!-- JavaBean 实现 序列化 接口 -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin">
+		</plugin>
+		<!-- genenat entity时,生成toString -->
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+		<!-- 自定义物理分页  可生成支持Mysql数据的limit  不支持Oracle -->
+		<!--<plugin type="org.mybatis.generator.plugins.page.PaginationPlugin" />-->
+		<!-- 自定义查询指定字段  -->
+		<!--<plugin type="org.mybatis.generator.plugins.field.FieldsPlugin" />-->
+		<!-- 开启支持内存分页   可生成 支持内存分布的方法及参数
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        -->
+		<!-- generate entity时，生成hashcode和equals方法
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+         -->
+		<!-- 此处是将Example改名为Criteria 当然 想改成什么都行~    -->
+		<plugin type="org.mybatis.generator.plugins.RenameExampleClassPlugin">
+			<property name="searchString" value="Example$" />
+			<!-- 替换后
+            <property name="replaceString" value="Criteria" />
+             -->
+			<property name="replaceString" value="Query" />
+		</plugin>
+		<!-- 此处是将UserMapper.xml改名为UserDao.xml 当然 想改成什么都行~ -->
+		<!--<plugin type="org.mybatis.generator.plugins.rename.RenameSqlMapperPlugin">
+			<property name="searchString" value="Mapper" />
+			<property name="replaceString" value="Dao" />
+		</plugin>-->
+
+		<!-- 此处是将UserMapper改名为UserDao 接口 当然 想改成什么都行~  -->
+		<!--<plugin type="org.mybatis.generator.plugins.rename.RenameJavaMapperPlugin">
+			<property name="searchString" value="Mapper$" />
+			<property name="replaceString" value="Dao" />
+		</plugin>-->
+
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<jdbcConnection driverClass="${jdbc.driverClassName}"
+						connectionURL="${jdbc.url}"
+						userId="${jdbc.username}"
+						password="${jdbc.password}">
+		</jdbcConnection>
+		<!--数据库连接的信息：驱动类、连接地址、用户名、密码 -->
+		<!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+						connectionURL="jdbc:mysql://localhost:3306/taotao?useSSL=false" userId="root"
+						password="root">
+		</jdbcConnection>-->
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer，为 true时把JDBC DECIMAL 和
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="true" />
+		</javaTypeResolver>
+
+		<!-- 数据表对应的model层 实体 -->
+		<javaModelGenerator targetPackage="com.manage.pojo"
+							targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- sql mapper 映射配置文件 -->
+		<sqlMapGenerator targetPackage="com.manage.mapper"
+						 targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- mybatis3中的mapper接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+							 targetPackage="com.manage.mapper"
+							 targetProject="src/main/java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- 数据表进行生成操作 schema:相当于库名; tableName:表名;
+            domainObjectName:对应的DO
+       <!-指定数据库表 -->
+		<table schema="" tableName="tb_content"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_content_category"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_item"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_item_cat"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_item_desc"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_item_param"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_item_param_item"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_order"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_order_item"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_order_shipping"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+		<table schema="" tableName="tb_user"  enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true" selectByExampleQueryId="true" ></table>
+	</context>
+</generatorConfiguration>

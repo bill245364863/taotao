@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:bubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:duboo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/tx/spring-tx.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--配置扫描包，扫描所有带@service注解的类-->
+    <context:component-scan base-package="com.content.service"/>
+     <!--发布dubbo服务-->
+    <!--注册中心登记名字叫taotao-manage-->
+    <dubbo:application name="taotao-content"/>
+    <!--注册中心地址 注册中心的ip地址-->
+    <dubbo:registry protocol="zookeeper" address="192.168.226.130:2181"/>
+    <!--用dubbo协议在20881端口暴露服务-->
+    <dubbo:protocol name="dubbo" port="20881"/>
+    <!--声明需要暴露的服务-->
+    <dubbo:service interface="com.content.service.ContentCategoryService" ref="contentCategoryServiceImpl" timeout="300000"/>
+
+<!--
+    <dubbo:service interface="com.manage.service.ItemService" ref="itemServiceImpl" />
+-->
+</beans>
